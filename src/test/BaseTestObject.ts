@@ -1,6 +1,6 @@
-import Tester from "./Tester";
-import {UnitTester, isUnitTest} from "./unit";
-import {UiTester} from "./ui";
+import Test from "../interfaces/Test";
+import {UnitTest, isUnitTest} from "./UnitTest";
+import {UiTest} from "./UiTest";
 
 export default abstract class BaseTestObject {
 
@@ -8,10 +8,12 @@ export default abstract class BaseTestObject {
     }
 
     getObject(id = this.id) {
-        return isUnitTest() ? new UnitTester(id) : new UiTester(id);
+        return isUnitTest() ? new UnitTest(id) : new UiTest(id);
     };
 
     get root() {
         return this.getObject(this.id);
     }
+
+    abstract get names(): unknown;
 }

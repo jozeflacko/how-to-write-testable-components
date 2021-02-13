@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import {renderUnitTest, isUnitTest} from './test/unit';
+import {renderUnitTest, isUnitTest} from './test/UnitTest';
 
 export default function render(element: JSX.Element) {
     if (isUnitTest()) {
