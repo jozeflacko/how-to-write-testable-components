@@ -11,7 +11,7 @@ export default function Text(props: Props) {
     const names = getNames(props.id);
 
     return <p
-        data-testid={names.id.root}
+        id={names.id.root}
     >
         {props.children}
     </p>;

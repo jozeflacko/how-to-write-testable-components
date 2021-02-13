@@ -1,49 +1,73 @@
 import Test, {AttributeName} from "../interfaces/Test";
-import {render, screen} from '@testing-library/react';
+import {render, RenderResult, screen, fireEvent} from '@testing-library/react';
 
 export function isUnitTest() {
     return (process.env.NODE_ENV + '').toLocaleLowerCase() === 'test';
 }
 
+let dom: RenderResult | null = null;
+
 export function renderUnitTest(component: JSX.Element) {
-    render(component);
+    dom = render(component);
 }
 
-export class UnitTest implements Test<HTMLElement> {
+export class UnitTest implements Test {
 
-    constructor(private id: string) {
+    constructor(private querySelector: string) {
     }
 
+    get elements() {
+        if (dom == null) {
+            throw new Error("First you have to render component!");
+        }
+        return dom.container.querySelectorAll(this.querySelector);
+    }
+
+    querySelectorAll(querySelector: string) {
+        return new UnitTest(querySelector);
+    }
+
+    assertIsDisabled(): void {
+        this.elements.forEach(el => expect(el).toBeDisabled());
+    }
+
+    assertIsActive(): void {
+        this.elements.forEach(el => expect(el).not.toBeDisabled());
+    }
+
+
     assertNotExists() {
-        expect(this.element).not.toBeInTheDocument();
+        this.elements.forEach(el => expect(el).not.toBeInTheDocument());
     }
 
     assertExists() {
-        expect(this.element).toBeInTheDocument();
+        this.elements.forEach(el => expect(el).toBeInTheDocument());
     }
 
     assertHasText(text: string) {
-        expect(this.element).toHaveTextContent(text);
-    }
-
-    get element() {
-        return screen.getByTestId(this.id);
+        this.elements.forEach(el => expect(el).not.toHaveTextContent(text));
     }
 
     assertHasAttribute(attributeName: AttributeName, attributeValue: string): void {
-        throw new Error("Method not implemented.");
+        this.elements.forEach(el => expect(el).toHaveAttribute(attributeName, attributeValue));
     }
 
-    assertHasNotAttribute(attributeName: AttributeName, attributeValue: string): void {
-        throw new Error("Method not implemented.");
+    assertHasNotAttribute(attributeName: AttributeName): void {
+        this.elements.forEach(el => expect(el).not.toHaveAttribute(attributeName));
     }
 
     click(): void {
-        throw new Error("Method not implemented.");
+        if (this.elements.length > 1) {
+            throw new Error('Multiple selected elements');
+        }
+        fireEvent.click(this.elements[0]);
     }
 
     write(value: string | number): void {
-        throw new Error("Method not implemented.");
+        if (this.elements.length > 1) {
+            throw new Error('Multiple selected elements');
+        }
+        fireEvent.change(this.elements[0], {target: {value: value}});
     }
 }
 

@@ -12,7 +12,7 @@ export default function Button(props: Props) {
     const names = getNames(props.id);
 
     return <a
-        data-testid={names.id.root}
+        id={names.id.root}
         href={props.href}
         target="_blank"
         rel="noopener noreferrer"

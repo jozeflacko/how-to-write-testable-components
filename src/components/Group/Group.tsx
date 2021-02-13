@@ -11,7 +11,7 @@ export default function Group(props: Props) {
     const names = getNames(props.id);
 
     return <div
-        data-testid={names.id.root}
+        id={names.id.root}
     >
         {props.children}
     </div>;

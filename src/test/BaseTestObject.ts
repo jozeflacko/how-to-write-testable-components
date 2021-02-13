@@ -1,4 +1,4 @@
-import Test from "../interfaces/Test";
+
 import {UnitTest, isUnitTest} from "./UnitTest";
 import {UiTest} from "./UiTest";
 

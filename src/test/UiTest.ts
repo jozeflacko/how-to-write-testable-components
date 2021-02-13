@@ -7,6 +7,23 @@ export class UiTest implements Test {
     constructor(private id: string) {
     }
 
+    get element() {
+        throw new Error("Method not implemented.");
+    };
+
+    getElementById(id: string): Test {
+        throw new Error("Method not implemented.");
+    }
+    querySelectorAll(querySelector: string): Test {
+        throw new Error("Method not implemented.");
+    }
+    assertIsDisabled(): void {
+        throw new Error("Method not implemented.");
+    }
+    assertIsActive(): void {
+        throw new Error("Method not implemented.");
+    }
+
     assertExists() {
         throw new Error("Method not implemented.");
     }
@@ -18,10 +35,6 @@ export class UiTest implements Test {
     assertNotExists() {
         throw new Error("Method not implemented.");
     }
-
-    get element() {
-        throw new Error("Method not implemented.");
-    };
 
     assertHasAttribute(attributeName: AttributeName, attributeValue: string): void {
         throw new Error("Method not implemented.");

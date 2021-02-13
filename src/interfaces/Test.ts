@@ -5,13 +5,17 @@ export enum AttributeName {
     value='value',
 }
 
-export default interface Test<TypeOfElement = any> {
+export default interface Test {
 
-    readonly element: TypeOfElement;
+    querySelectorAll(querySelector: string): unknown;
 
     assertExists(): void;
 
     assertNotExists(): void;
+
+    assertIsDisabled(): void;
+
+    assertIsActive(): void;
 
     assertHasText(text: string): void;
 
