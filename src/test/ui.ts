@@ -1,43 +1,30 @@
 import Tester from "./Tester";
 import {render, screen} from '@testing-library/react';
 
-export function unitTest(component: JSX.Element) {
-    render(component);
-}
+export class UiTester implements Tester {
 
-export class UnitTester implements Tester<UnitTester> {
-
-    constructor(private idOrTester: string | UnitTester) {
+    constructor(private idOrTester: string | UiTester | null) {
     }
 
     isAvailable(): boolean {
-        throw new Error("Method not implemented.");
-    }
-
-    assertNotExists(): UnitTester {
-        expect(this.getThis()).not.toBeInTheDocument();
-        return this;
+        return (window as any).cypress != null;
     }
 
     assertExists() {
-        expect(this.getThis()).toBeInTheDocument();
-        return this;
+        throw new Error("Method not implemented.");
     }
 
     assertHasText(text: string) {
-        expect(this.getThis()).toHaveTextContent(text);
-        return this;
+        throw new Error("Method not implemented.");
+    }
+
+    assertNotExists() {
+        throw new Error("Method not implemented.");
     }
 
     getElementById(id: string) {
-        return new UnitTester(id);
+        throw new Error("Method not implemented.");
     }
 
-    private getThis(idOrTester: string | UnitTester = this.idOrTester) {
-        if (typeof idOrTester === 'string') {
-            return screen.getByTestId(idOrTester);
-        } else {
-            return idOrTester;
-        }
-    }
+
 }

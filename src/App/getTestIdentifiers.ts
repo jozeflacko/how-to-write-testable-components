@@ -1,4 +1,4 @@
-export default function getIdentifiers(root: string) {
+export default function getTestIdentifiers(root: string) {
     return {
         root,
         description: root + '-description',
