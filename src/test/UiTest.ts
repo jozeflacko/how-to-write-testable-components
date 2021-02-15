@@ -1,8 +1,14 @@
-import Test, {AttributeName} from "../interfaces/Test";
+//import Test, {AttributeName} from "jozefllacko-test-api";
 import {render, screen} from '@testing-library/react';
 import UnitTest from "./UnitTest";
 
-export class UiTest implements Test {
+type AttributeName = any;
+
+export function isUiTest() {
+    return (window as any).cypress != null;
+}
+
+export class UiTest /*implements Test*/ {
 
     constructor(private id: string) {
     }
@@ -11,10 +17,10 @@ export class UiTest implements Test {
         throw new Error("Method not implemented.");
     };
 
-    getElementById(id: string): Test {
+    getElementById(id: string) {
         throw new Error("Method not implemented.");
     }
-    querySelectorAll(querySelector: string): Test {
+    querySelectorAll(querySelector: string) {
         throw new Error("Method not implemented.");
     }
     assertIsDisabled(): void {

@@ -1,4 +1,4 @@
-import Test, {AttributeName} from "../interfaces/Test";
+//import Test, {AttributeName} from "jozefllacko-test-api";
 import {render, RenderResult, screen, fireEvent} from '@testing-library/react';
 
 export function isUnitTest() {
@@ -7,11 +7,13 @@ export function isUnitTest() {
 
 let dom: RenderResult | null = null;
 
+type AttributeName = any;
+
 export function renderUnitTest(component: JSX.Element) {
     dom = render(component);
 }
 
-export class UnitTest implements Test {
+export class UnitTest /*implements Test*/ {
 
     constructor(private querySelector: string) {
     }

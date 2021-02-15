@@ -1,6 +1,6 @@
 
-import {UnitTest, isUnitTest} from "./UnitTest";
-import {UiTest} from "./UiTest";
+import {UnitTest} from "./UnitTest";
+import {UiTest, isUiTest} from "./UiTest";
 
 export default abstract class BaseTestObject {
 
@@ -8,7 +8,7 @@ export default abstract class BaseTestObject {
     }
 
     getObject(id = this.id) {
-        return isUnitTest() ? new UnitTest(id) : new UiTest(id);
+       return !isUiTest() ? new UnitTest(id) : new UiTest(id);
     };
 
     get root() {
